@@ -29,7 +29,6 @@ export function crea_morte(s, Y_TERRENO, terreno) {
 
     PP.physics.add(s, morte, PP.physics.type.DYNAMIC);
     PP.physics.set_collide_world_bounds(morte, true);
-
 }
 
 export function muovi_morte(s) {
