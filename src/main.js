@@ -1,6 +1,7 @@
 
 const LARGHEZZA = 1280;
 const ALTEZZA = 720;
+const FONT = "Press Start";
 
 const config = {
   canvas_width: LARGHEZZA,
