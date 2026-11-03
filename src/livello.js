@@ -2,11 +2,14 @@ import { morte, frena } from "./morte.js";
 
 export const Y_TERRENO = 592;
 const TERRA = "0xB96E54";
+
 const L_LIVELLO = 5000;
+const ALTEZZA = 720;
+const LARGHEZZA = 1280;
+
 const A_CASSA = 80;
 const L_CASSA = 80;
-const LARGHEZZA = 1280;
-const ALTEZZA = 720;
+
 const A_TERRENO = 128;
 
 const ANTICIPO_CAMERA = 200;
@@ -16,7 +19,7 @@ export let cassa;
 
 
 export function crea_terreno(s) {
-    terreno = PP.shapes.rectangle_add(s, L_LIVELLO / 2, Y_TERRENO + A_TERRENO / 2, L_LIVELLO, A_TERRENO, TERRA, 1);
+    let terreno = PP.shapes.rectangle_add(s, L_LIVELLO / 2, Y_TERRENO + A_TERRENO / 2, L_LIVELLO, A_TERRENO, TERRA, 1);
     PP.physics.add(s, terreno, PP.physics.type.STATIC);
 }
 

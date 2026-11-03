@@ -1,3 +1,5 @@
+import {terreno, Y_TERRENO} from "./livello.js";
+
 const NERO = "0x000000";
 
 const X_MORTE = 200;
@@ -6,6 +8,7 @@ const A_MORTE = 137;
 
 const VEL_SALTO = 1100;
 const VEL_CORSA = 600;
+
 
 const TASTO_SALTO = PP.key_codes.SPACE;
 const TASTO_SX = PP.key_codes.LEFT;
@@ -20,12 +23,13 @@ export let morte;
 
 let animazione;
 
-export function crea_morte(s, x, y) {
+
+export function crea_morte(s, Y_TERRENO, terreno) {
     morte = PP.shapes.rectangle_add(s, X_MORTE, Y_TERRENO - A_MORTE / 2, L_MORTE, A_MORTE, NERO, 1);
 
     PP.physics.add(s, morte, PP.physics.type.DYNAMIC);
     PP.physics.set_collide_world_bounds(morte, true);
-    PP.physics.add_collider(s, morte, terreno);
+
 }
 
 export function muovi_morte(s) {
