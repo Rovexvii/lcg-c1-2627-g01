@@ -5,10 +5,13 @@ const TERRA = "0xB96E54";
 const L_LIVELLO = 5000;
 const A_CASSA = 80;
 const L_CASSA = 80;
+const LARGHEZZA = 1280;
+const ALTEZZA = 720;
+const A_TERRENO = 128;
 
 const ANTICIPO_CAMERA = 200;
 
-export let terreni;
+export let terreno;
 export let cassa;
 
 
@@ -24,5 +27,5 @@ export function crea_camera(s) {
 }
 
 export function crea_attrito (s, attrito) {
-    for ( let i = 0; i < terreni.lenght; i++) {PP.physics.add_collider_f(s, morte, terreni [i], attrito);}
+    for ( let i = 0; i < terreno.length; i++) {PP.physics.add_collider_f(s, morte, terreno [i], attrito);}
 }
