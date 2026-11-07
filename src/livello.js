@@ -20,7 +20,10 @@ export let terreno;
 export let cassa;
 
 export function crea_layer(s, img) {
-    let layer
+    let layer = PP.assets.tilesprite.add(s, img, 0,0, LARGHEZZA, ALTEZZA, 0, 0);
+    layer.tile_geometry.scroll_factor_x = 0;
+    layer.tile_geometry.scroll_factor_y = 0;
+    return layer;
 }
 
 export function crea_terreno(s) {
