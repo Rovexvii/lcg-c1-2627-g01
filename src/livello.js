@@ -6,6 +6,8 @@ const TERRA = "0xB96E54";
 const L_LIVELLO = 5000;
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
+const L_CANTIERE = 4300;
+const A_CANTIERE = 5200;
 
 const A_CASSA = 80;
 const L_CASSA = 80;
