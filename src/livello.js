@@ -19,9 +19,12 @@ const ANTICIPO_CAMERA = 200;
 export let terreno;
 export let cassa;
 
+export function crea_layer(s, img) {
+    let layer
+}
 
 export function crea_terreno(s) {
-    let terreno = PP.shapes.rectangle_add(s, L_LIVELLO / 2, Y_TERRENO + A_TERRENO / 2, L_LIVELLO, A_TERRENO, TERRA, 1);
+    terreno = PP.shapes.rectangle_add(s, L_LIVELLO / 2, Y_TERRENO + A_TERRENO / 2, L_LIVELLO, A_TERRENO, TERRA, 1);
     PP.physics.add(s, terreno, PP.physics.type.STATIC);
 }
 
