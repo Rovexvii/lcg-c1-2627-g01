@@ -2,13 +2,14 @@ import { morte, crea_morte, frena} from "./morte.js";
 
 export const Y_TERRENO = 592;
 const TERRA = "0xB96E54";
+const ROSSO = "0xFF0000";
 
 const L_LIVELLO = 5000;
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
 const L_CANTIERE = 2000;
-const A_CANTIERE = 5200;
-const A_MURO = 500;
+const A_CANTIERE = 3000;
+const A_MURO = 2570;
 const L_MURO = 80;
 
 const A_CASSA = 80;
@@ -41,10 +42,8 @@ export function crea_terreno(s) {
 }
 
 export function crea_muro(s) {
-    muro = PP.shapes.rectangle_add(s, L_CANTIERE * 1.1, Y_TERRENO - A_CANTIERE, L_MURO, A_MURO, TERRA, 1);
-
+    muro = PP. shapes.rectangle_add(s, L_CANTIERE * 0.6, Y_TERRENO - A_CANTIERE / 2, L_MURO, A_MURO, ROSSO, 1);
 }
-
 
 export function crea_camera(s) {
     PP.physics.set_world_bounds(s, 0, 0, L_LIVELLO, ALTEZZA);
