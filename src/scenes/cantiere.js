@@ -1,16 +1,21 @@
 import { crea_morte, muovi_morte, frena } from "../morte.js";
-import { Y_TERRENO, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, crea_piattaforma} from "../livello.js";
+import { Y_TERRENO, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, crea_piattaforma, crea_muletto} from "../livello.js";
+
+const X_PIATTAFORMA = [2500, 2000];
+const Y_PIATTAFORMA = [340, 80];
 
 function preload(s) {}
 
  function create(s) {
     crea_terreno(s); 
+    crea_cantiere(s);
     crea_morte(s); 
     crea_camera(s);
-    crea_cantiere(s);
     muro_sx(s);
     muro_dx(s);
-    crea_piattaforma(s);
+    crea_piattaforma(s, X_PIATTAFORMA, Y_PIATTAFORMA);
+    crea_muletto(s);
+
 }
 
 function update(s) {

@@ -3,19 +3,27 @@ import { morte, crea_morte, frena} from "./morte.js";
 export const Y_TERRENO = 592;
 const TERRA = "0xB96E54";
 const ROSSO = "0xFF0000";
+const GIALLO = "0xFFFF00";
 
 const L_LIVELLO = 5000;
-/*
+
 const A_LIVELLO = 2500;
-*/
+
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
 const L_CANTIERE = 2000;
 const A_CANTIERE = 3000;
+
 const A_MURO = 2570;
 const L_MURO = 60;
+
+const A_MULETTO = 350;
+const L_MULETTO = 248; 
+
+
 const A_PIATTAFORMA = 30;
 const L_PIATTAFORMA = 335;
+
 
 
 const A_CASSA = 80;
@@ -30,12 +38,19 @@ export let cassa;
 export let cantiere;
 export let muro;
 export let piattaforma;
+export let muletto;
 
 export function crea_layer(s, img) {
     let layer = PP.assets.tilesprite.add(s, img, 0,0, LARGHEZZA, ALTEZZA, 0, 0);
     layer.tile_geometry.scroll_factor_x = 0;
     layer.tile_geometry.scroll_factor_y = 0;
     return layer;
+}
+
+export function crea_muletto(s) {
+    muletto = PP.shapes.rectangle_add(s, 3046, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
+    PP.physics.add(s, muletto, PP.physics.type.STATIC);
+    PP.physics.add_collider(s, morte, muletto);
 }
 
 export function crea_cantiere(s) {
@@ -59,16 +74,24 @@ export function muro_dx(s) {
     PP.physics.add_collider(s, morte, muro);
 }
 
-export function crea_piattaforma(s) {
-    piattaforma = PP.shapes.rectangle_add(s, L_CANTIERE, 340, L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
-    PP.physics.add(s, piattaforma, PP.physics.type.STATIC);
-    PP.physics.add_collider(s, morte, piattaforma);
+export function crea_piattaforma(s, x_piattaforma, y_piattaforma) {
+    piattaforma = [];
+    for (let i = 0; i < x_piattaforma.length; i++) {
+        let p = PP.shapes.rectangle_add(s, x_piattaforma[i], y_piattaforma[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+        piattaforma.push(p);
+    }
+    for (let i = 0; i < piattaforma.length; i++) {
+        PP.physics.add(s, piattaforma[i], PP.physics.type.STATIC);
+        PP.physics.add_collider(s, morte, piattaforma[i]);
+    }
 }
 
 export function crea_camera(s) {
-    PP.physics.set_world_bounds(s, 0, 0, L_LIVELLO, ALTEZZA);
+    PP.physics.set_world_bounds(s, 0, 0, L_LIVELLO, A_LIVELLO);
     PP.camera.set_bounds(s, 0, 0, L_LIVELLO, ALTEZZA);
-    PP.camera.start_follow(s, morte, -ANTICIPO_CAMERA, 0);
+    
+    PP.camera.start_follow(s, morte, 0, ANTICIPO_CAMERA);
+    
 }
 
 export function crea_attrito (s, attrito) {
