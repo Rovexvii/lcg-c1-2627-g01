@@ -8,7 +8,7 @@ const config = {
   canvas_height: ALTEZZA,
   canvas_id: "area_gioco",
   background_color: 0xABABAB,
-  gravity_value: 2000,
+  gravity_value: 2200,
   debug_mode: true,
 };
 

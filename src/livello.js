@@ -17,8 +17,8 @@ const A_CANTIERE = 3000;
 const A_MURO = 2570;
 const L_MURO = 60;
 
-const A_MULETTO = 350;
-const L_MULETTO = 248; 
+const A_MULETTO = 180;
+const L_MULETTO = 300; 
 
 
 const A_PIATTAFORMA = 30;
@@ -29,9 +29,9 @@ const L_PIATTAFORMA = 335;
 const A_CASSA = 80;
 const L_CASSA = 80;
 
-const A_TERRENO = 128;
+const A_TERRENO = 170;
 
-const ANTICIPO_CAMERA = 200;
+const ANTICIPO_CAMERA = 150;
 
 export let terreno;
 export let cassa;
@@ -48,7 +48,7 @@ export function crea_layer(s, img) {
 }
 
 export function crea_muletto(s) {
-    muletto = PP.shapes.rectangle_add(s, 3046, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
+    muletto = PP.shapes.rectangle_add(s, 3020, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
     PP.physics.add(s, muletto, PP.physics.type.STATIC);
     PP.physics.add_collider(s, morte, muletto);
 }
@@ -88,10 +88,8 @@ export function crea_piattaforma(s, x_piattaforma, y_piattaforma) {
 
 export function crea_camera(s) {
     PP.physics.set_world_bounds(s, 0, 0, L_LIVELLO, A_LIVELLO);
-    PP.camera.set_bounds(s, 0, 0, L_LIVELLO, ALTEZZA);
-    
+    /*PP.camera.set_bounds(s, 0, 0, L_LIVELLO, A_LIVELLO);*/
     PP.camera.start_follow(s, morte, 0, ANTICIPO_CAMERA);
-    
 }
 
 export function crea_attrito (s, attrito) {

@@ -1,6 +1,5 @@
 import { Y_TERRENO, terreno } from "./livello.js";
 
-
 const NERO = "0x000000";
 
 const X_MORTE = 200;
