@@ -21,8 +21,8 @@ const A_MULETTO = 180;
 const L_MULETTO = 300; 
 
 
-const A_PIATTAFORMA = 30;
-const L_PIATTAFORMA = 335;
+const A_PIATTAFORMA = 50;
+const L_PIATTAFORMA = 280;
 
 
 
@@ -31,7 +31,7 @@ const L_CASSA = 80;
 
 const A_TERRENO = 170;
 
-const ANTICIPO_CAMERA = 150;
+const ANTICIPO_CAMERA = 100;
 
 export let terreno;
 export let cassa;
@@ -87,9 +87,11 @@ export function crea_piattaforma(s, x_piattaforma, y_piattaforma) {
 }
 
 export function crea_camera(s) {
-    PP.physics.set_world_bounds(s, 0, 0, L_LIVELLO, A_LIVELLO);
-    /*PP.camera.set_bounds(s, 0, 0, L_LIVELLO, A_LIVELLO);*/
-    PP.camera.start_follow(s, morte, 0, ANTICIPO_CAMERA);
+    PP.physics.set_world_bounds(s, 0, -ALTEZZA, L_LIVELLO, ALTEZZA * 3);
+    PP.camera.set_bounds(s, 0, -ALTEZZA, L_LIVELLO, ALTEZZA * 2);
+    PP.camera.start_follow(s, morte, 0, 0);
+    /*
+    PP.camera.set_deadzone(s, 0, 300);*/
 }
 
 export function crea_attrito (s, attrito) {

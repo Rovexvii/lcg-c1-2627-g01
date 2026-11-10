@@ -1,8 +1,8 @@
 import { crea_morte, muovi_morte, frena } from "../morte.js";
 import { Y_TERRENO, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, crea_piattaforma, crea_muletto} from "../livello.js";
 
-const X_PIATTAFORMA = [2600, 2000];
-const Y_PIATTAFORMA = [280, 100];
+const X_PIATTAFORMA = [2500, 1950, 1400];
+const Y_PIATTAFORMA = [280, 120, -40];
 
 function preload(s) {}
 
