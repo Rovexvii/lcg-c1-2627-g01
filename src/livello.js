@@ -6,9 +6,12 @@ const ROSSO = "0xFF0000";
 const GIALLO = "0xFFFF00";
 const BLU = "0x0000FF";
 
+const VEL_PIATTAFORMA = [140, 95];
+const ESCURSIONE = 130;
+
 const L_LIVELLO = 5000;
 
-const A_LIVELLO = 2500;
+const A_LIVELLO = 500;
 
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
@@ -48,7 +51,10 @@ export let murodx;
 export let piattaforma;
 export let muletto;
 export let piano;
-export let cassafissa
+export let cassafissa;
+export let piattaformamobile;
+export let y_partenza;
+
 
 export function crea_layer(s, img) {
     let layer = PP.assets.tilesprite.add(s, img, 0,0, LARGHEZZA, ALTEZZA, 0, 0);
@@ -96,6 +102,35 @@ export function crea_piattaforma(s, x_piattaforma, y_piattaforma) {
     }
 }
 
+export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamobile) {
+      piattaformamobile = [];
+  y_partenza = y_piattaformamobile;
+  for (let i = 0; i < y_piattaformamobile.length; i++) {
+    let b = PP.shapes.rectangle_add(s,
+      x_piattaformamobile[i], y_piattaformamobile[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+    PP.physics.add(s, b, PP.physics.type.DYNAMIC);
+    PP.physics.set_allow_gravity(b, false);
+    PP.physics.set_immovable(b, true);
+    PP.physics.set_velocity_y(b, VEL_PIATTAFORMA[i]);
+    PP.physics.add_collider(s, morte, b);
+    piattaformamobile.push(b);
+  }
+}
+
+export function muovi_piattaforma() {
+      for (let i = 0; i < piattaformamobile.length; i++) {
+    let b = piattaformamobile[i];
+    if (b.geometry.y > y_partenza[i] + ESCURSIONE) {
+      PP.physics.set_velocity_y(b, -VEL_PIATTAFORMA[i]);
+    }
+    if (b.geometry.y < y_partenza[i] - ESCURSIONE) {
+      PP.physics.set_velocity_y(b, VEL_PIATTAFORMA[i]);
+    }
+  }
+}
+
+
+
 export function crea_piano(s, x_piano, y_piano) {
     piano = [];
     for (let i = 0; i < x_piano.length; i++) {
@@ -117,9 +152,7 @@ export function crea_cassafissa(s, x_cassafissa, y_cassafissa) {
     for (let i = 0; i < cassafissa.length; i++) {
         PP.physics.add(s, cassafissa[i], PP.physics.type.STATIC);
         PP.physics.add_collider(s, morte, cassafissa[0]);
-        PP.physics.add_collider(s, cassa[0], cassafissa[0]);
-
-
+        PP.physics.add_collider(s, cassa[i], cassafissa[0]);
     }
 }
 
@@ -128,21 +161,21 @@ export function crea_cassa(s, x_cassa, y_cassa) {
     for (let i = 0; i < x_cassa.length; i++) {
         let c = PP.shapes.rectangle_add(s, x_cassa[i], y_cassa[i], L_CASSA, A_CASSA, GIALLO, 1);
         cassa.push(c);
-
     }
     for (let i = 0; i < cassa.length; i++) {
         PP.physics.add(s, cassa[i], PP.physics.type.DYNAMIC);
-        PP.physics.add_collider(s, morte, cassa[0]);
-        PP.physics.add_collider(s, cassa[0], piano[0]);
-        PP.physics.add_collider(s, murodx, cassa[0]);
-        PP.physics.add_collider(s, murosx, cassa[0]);
-        PP.physics.add_collider(s, terreno, cassa[0]);
-        PP.physics.add_collider(s, piattaforma[2], cassa[0]);    }
+        PP.physics.add_collider(s, morte, cassa[i]);
+    
+        PP.physics.add_collider(s, cassa[i], piano[0]);
+        PP.physics.add_collider(s, murodx, cassa[i]);
+        PP.physics.add_collider(s, murosx, cassa[i]);
+        PP.physics.add_collider(s, terreno, cassa[i]);
+        PP.physics.add_collider(s, piattaforma[2], cassa[i]);    }
 }
 
 export function crea_camera(s) {
-    PP.physics.set_world_bounds(s, 0, -ALTEZZA, L_LIVELLO, ALTEZZA * 3);
-    PP.camera.set_bounds(s, 0, -ALTEZZA, L_LIVELLO, ALTEZZA * 2);
+    PP.physics.set_world_bounds(s, 0, Y_TERRENO - A_CANTIERE, L_LIVELLO, A_CANTIERE + A_TERRENO);
+    PP.camera.set_bounds(s, 0, Y_TERRENO - A_CANTIERE, L_LIVELLO, A_CANTIERE + A_TERRENO);
     PP.camera.start_follow(s, morte, 0, 0);
     /*
     PP.camera.set_deadzone(s, 0, 300);*/

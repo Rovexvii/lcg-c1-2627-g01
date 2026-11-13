@@ -28,7 +28,9 @@ let animazione;
 export function crea_morte(s) {
     morte= PP.shapes.rectangle_add(s, X_MORTE, Y_TERRENO - A_MORTE / 2, L_MORTE, A_MORTE, NERO, 1);
     PP.physics.add(s, morte, PP.physics.type.DYNAMIC);
+    /*
     PP.physics.set_collide_world_bounds(morte, true);
+    */
     PP.physics.add_collider(s, morte, terreno);
 
 }
