@@ -6,10 +6,10 @@ const ROSSO = "0xFF0000";
 const GIALLO = "0xFFFF00";
 const BLU = "0x0000FF";
 
-const VEL_PIATTAFORMA = [140, 95];
-const VEL_PIATTAFORMAX = [180];
+const VEL_PIATTAFORMA = [140, 90];
+const VEL_PIATTAFORMAX = [150];
 const ESCURSIONE = 130;
-const ESCURSIONEX = 200;
+const ESCURSIONEX = 160;
 
 const L_LIVELLO = 5000;
 
@@ -59,6 +59,10 @@ export let y_partenza;
 export let x_partenza;
 export let piattaformamobilex;
 
+export let img_cassa;
+export let img_piattaforma;
+export let img_cassafissa;
+
 
 export function crea_layer(s, img) {
     let layer = PP.assets.tilesprite.add(s, img, 0,0, LARGHEZZA, ALTEZZA, 0, 0);
@@ -97,7 +101,7 @@ export function muro_dx(s) {
 export function crea_piattaforma(s, x_piattaforma, y_piattaforma) {
     piattaforma = [];
     for (let i = 0; i < x_piattaforma.length; i++) {
-        let p = PP.shapes.rectangle_add(s, x_piattaforma[i], y_piattaforma[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+        let p = PP.assets.image.add(s, img_piattaforma, x_piattaforma[i], y_piattaforma[i], 0.5, 0.5);
         piattaforma.push(p);
     }
     for (let i = 0; i < piattaforma.length; i++) {
@@ -120,7 +124,8 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
     piattaformamobile.push(b);
   }
 }
-  export function crea_piattaformamobilex (s, x_piattaformamobilex, y_piattaformamobilex) {
+
+ export function crea_piattaformamobilex (s, x_piattaformamobilex, y_piattaformamobilex) {
     piattaformamobilex=[];
   
     x_partenza = x_piattaformamobilex;
@@ -175,7 +180,7 @@ export function crea_piano(s, x_piano, y_piano) {
 export function crea_cassafissa(s, x_cassafissa, y_cassafissa) {
     cassafissa = []
     for (let i = 0; i < x_cassafissa.length; i++) {
-        let f = PP.shapes.rectangle_add(s, x_cassafissa[i], y_cassafissa[i], L_CASSAFISSA, A_CASSAFISSA, GIALLO, 1)
+        let f = PP.assets.image.add(s, img_cassafissa, x_cassafissa[i], y_cassafissa[i], 0.5, 0.5)
         cassafissa.push(f)
     }
     for (let i = 0; i < cassafissa.length; i++) {
@@ -188,7 +193,7 @@ export function crea_cassafissa(s, x_cassafissa, y_cassafissa) {
 export function crea_cassa(s, x_cassa, y_cassa) {
     cassa = [];
     for (let i = 0; i < x_cassa.length; i++) {
-        let c = PP.shapes.rectangle_add(s, x_cassa[i], y_cassa[i], L_CASSA, A_CASSA, GIALLO, 1);
+        let c = PP.assets.image.add(s, img_cassa, x_cassa[i], y_cassa[i], 0.5, 0.5);
         cassa.push(c);
     }
     for (let i = 0; i < cassa.length; i++) {
@@ -203,6 +208,12 @@ export function crea_cassa(s, x_cassa, y_cassa) {
         PP.physics.add_collider(s, piattaforma[3], cassa[i]);
 
     }
+}
+
+export function carica_livello(s) {
+    img_cassa = PP.assets.image.load(s, "assets/images/cassa_colori.png");
+    img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png")
+    img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png")
 }
 
 export function crea_camera(s) {
