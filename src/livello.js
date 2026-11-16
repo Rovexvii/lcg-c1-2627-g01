@@ -7,7 +7,9 @@ const GIALLO = "0xFFFF00";
 const BLU = "0x0000FF";
 
 const VEL_PIATTAFORMA = [140, 95];
+const VEL_PIATTAFORMAX = [180];
 const ESCURSIONE = 130;
+const ESCURSIONEX = 200;
 
 const L_LIVELLO = 5000;
 
@@ -31,10 +33,9 @@ const L_PIATTAFORMA = 280;
 const A_PIANO = 50;
 const L_PIANO = 1400;
 
-
-
 const A_CASSA = 80;
 const L_CASSA = 80;
+
 
 const A_CASSAFISSA = 240;
 const L_CASSAFISSA = 80;
@@ -42,6 +43,7 @@ const L_CASSAFISSA = 80;
 const A_TERRENO = 170;
 
 const ANTICIPO_CAMERA = 100;
+
 
 export let terreno;
 export let cassa;
@@ -54,6 +56,8 @@ export let piano;
 export let cassafissa;
 export let piattaformamobile;
 export let y_partenza;
+export let x_partenza;
+export let piattaformamobilex;
 
 
 export function crea_layer(s, img) {
@@ -116,6 +120,33 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
     piattaformamobile.push(b);
   }
 }
+  export function crea_piattaformamobilex (s, x_piattaformamobilex, y_piattaformamobilex) {
+    piattaformamobilex=[];
+  
+    x_partenza = x_piattaformamobilex;
+  for (let i = 0; i < x_piattaformamobilex.length; i++) {
+    let m = PP.shapes.rectangle_add(s,
+      x_piattaformamobilex[i], y_piattaformamobilex[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+    PP.physics.add(s, m, PP.physics.type.DYNAMIC);
+    PP.physics.set_allow_gravity(m, false);
+    PP.physics.set_immovable(m, true);
+    PP.physics.set_velocity_x(m, VEL_PIATTAFORMAX[i]);
+    PP.physics.add_collider(s, morte, m);
+    piattaformamobilex.push(m);
+  }
+ }
+
+ export function muovi_piattaformax() {
+      for (let i = 0; i < piattaformamobilex.length; i++) {
+    let m = piattaformamobilex[i];
+    if (m.geometry.x > x_partenza[i] + ESCURSIONEX) {
+      PP.physics.set_velocity_x(m, -VEL_PIATTAFORMAX[i]);
+    }
+    if (m.geometry.x < x_partenza[i] - ESCURSIONEX) {
+      PP.physics.set_velocity_x(m, VEL_PIATTAFORMAX[i]);
+    }
+  }
+}
 
 export function muovi_piattaforma() {
       for (let i = 0; i < piattaformamobile.length; i++) {
@@ -128,8 +159,6 @@ export function muovi_piattaforma() {
     }
   }
 }
-
-
 
 export function crea_piano(s, x_piano, y_piano) {
     piano = [];
@@ -170,7 +199,10 @@ export function crea_cassa(s, x_cassa, y_cassa) {
         PP.physics.add_collider(s, murodx, cassa[i]);
         PP.physics.add_collider(s, murosx, cassa[i]);
         PP.physics.add_collider(s, terreno, cassa[i]);
-        PP.physics.add_collider(s, piattaforma[2], cassa[i]);    }
+        PP.physics.add_collider(s, piattaforma[2], cassa[i]);
+        PP.physics.add_collider(s, piattaforma[3], cassa[i]);
+
+    }
 }
 
 export function crea_camera(s) {
