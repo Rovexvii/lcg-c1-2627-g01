@@ -1,6 +1,6 @@
 import { morte, crea_morte, muovi_morte, frena } from "../morte.js";
 import { Y_TERRENO, cassa, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, 
-    crea_piattaforma, crea_muletto, crea_piano, crea_cassa, crea_cassafissa, crea_piattaformamobile, muovi_piattaforma,
+    crea_piattaforma, crea_muletto, crea_mulettoalto, crea_piano, crea_cassa, crea_cassafissa, crea_piattaformamobile, muovi_piattaforma,
     crea_piattaformamobilex, muovi_piattaformax, carica_livello} from "../livello.js";
 
 const X_PIATTAFORMA = [1700, 1200];
@@ -15,11 +15,11 @@ const Y_CASSA = [-265];
 const X_CASSAFISSA = [3130];
 const Y_CASSAFISSA = [-345];
 
-const X_PIATTAFORMAMOBILE = [2750, 1450];
-const Y_PIATTAFORMAMOBILE = [-675, -925];
+const X_PIATTAFORMAMOBILE = [2200];
+const Y_PIATTAFORMAMOBILE = [-300];
 
-const X_PIATTAFORMAMOBILEX = [1900, 2400];
-const Y_PIATTAFORMAMOBILEX = [-50, -150];
+const X_PIATTAFORMAMOBILEX = [1700, 1500];
+const Y_PIATTAFORMAMOBILEX = [-50, -500];
 
 const FPS_FISICA = 300;
 
@@ -36,6 +36,7 @@ function preload(s) {
     muro_dx(s);
     crea_piattaforma(s, X_PIATTAFORMA, Y_PIATTAFORMA);
     crea_muletto(s);
+    crea_mulettoalto(s);
     crea_piano(s, X_PIANO, Y_PIANO);
     /*
     crea_cassa(s, X_CASSA, Y_CASSA);

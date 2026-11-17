@@ -6,8 +6,8 @@ const ROSSO = "0xFF0000";
 const GIALLO = "0xFFFF00";
 const BLU = "0x0000FF";
 
-const VEL_PIATTAFORMA = [140, 90];
-const VEL_PIATTAFORMAX = [150];
+const VEL_PIATTAFORMA = [120, 90];
+const VEL_PIATTAFORMAX = [150, 100];
 const ESCURSIONE = 130;
 const ESCURSIONEX = 200;
 
@@ -24,8 +24,8 @@ const A_MURO = 2570;
 const L_MURO = 60;
 
 const A_MULETTO = 180;
-const L_MULETTO = 300; 
-
+const L_MULETTO = 300;
+const MULETTO_SOPRA = 119;
 
 const A_PIATTAFORMA = 50;
 const L_PIATTAFORMA = 280;
@@ -58,10 +58,13 @@ export let piattaformamobile;
 export let y_partenza;
 export let x_partenza;
 export let piattaformamobilex;
+export let mulettoalto;
 
 export let img_cassa;
 export let img_piattaforma;
 export let img_cassafissa;
+export let img_ruspa;
+export let img_ruspaalto;
 
 
 export function crea_layer(s, img) {
@@ -72,9 +75,15 @@ export function crea_layer(s, img) {
 }
 
 export function crea_muletto(s) {
-    muletto = PP.shapes.rectangle_add(s, 2220, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
+    muletto = PP.assets.image.add(s, img_ruspa, 2218, Y_TERRENO - A_MULETTO / 2, 0.5, 0.5);
     PP.physics.add(s, muletto, PP.physics.type.STATIC);
-    PP.physics.add_collider(s, morte, muletto);
+    PP.physics.add_collider(s, muletto, morte);
+}
+
+export function crea_mulettoalto(s) {
+    mulettoalto = PP.assets.image.add(s, img_ruspaalto, 2220, Y_TERRENO - A_MULETTO / 2 - MULETTO_SOPRA, 0.5, 0.5);
+    PP.physics.add(s, mulettoalto, PP.physics.type.STATIC);
+    PP.physics.add_collider(s, murodx, mulettoalto);
 }
 
 export function crea_cantiere(s) {
@@ -115,7 +124,7 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
   y_partenza = y_piattaformamobile;
   for (let i = 0; i < y_piattaformamobile.length; i++) {
     let b = PP.shapes.rectangle_add(s,
-      x_piattaformamobile[i], y_piattaformamobile[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+      x_piattaformamobile[i], y_piattaformamobile[i], L_PIATTAFORMA - 50, A_PIATTAFORMA - 10, ROSSO, 1);
     PP.physics.add(s, b, PP.physics.type.DYNAMIC);
     PP.physics.set_allow_gravity(b, false);
     PP.physics.set_immovable(b, true);
@@ -131,7 +140,7 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
     x_partenza = x_piattaformamobilex;
   for (let i = 0; i < x_piattaformamobilex.length; i++) {
     let m = PP.shapes.rectangle_add(s,
-      x_piattaformamobilex[i], y_piattaformamobilex[i], L_PIATTAFORMA, A_PIATTAFORMA, ROSSO, 1);
+      x_piattaformamobilex[i], y_piattaformamobilex[i], L_PIATTAFORMA - 50, A_PIATTAFORMA - 10, ROSSO, 1);
     PP.physics.add(s, m, PP.physics.type.DYNAMIC);
     PP.physics.set_allow_gravity(m, false);
     PP.physics.set_immovable(m, true);
@@ -214,6 +223,8 @@ export function carica_livello(s) {
     img_cassa = PP.assets.image.load(s, "assets/images/cassa_colori.png");
     img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png")
     img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png")
+    img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png")
+    img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png")
 }
 
 export function crea_camera(s) {
