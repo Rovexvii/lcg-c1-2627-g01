@@ -227,20 +227,13 @@ export function crea_cassa(s, x_cassa, y_cassa) {
 
 export function carica_livello(s) {
     img_cassa = PP.assets.image.load(s, "assets/images/cassa_colori.png");
-<<<<<<< HEAD
     img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png")
     img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png")
     img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png")
     img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png")
     img_pedanamobile = PP.assets.image.load (s, "assets/images/Pedana_mobile2.png")
-=======
-    img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png");
-    img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png");
-    img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png");
-    img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png");
 
     ss_morte = PP.assets.sprite.load_spritesheet (s, "assets/images/morte_spritesheet.png", L_MORTE, A_MORTE);
->>>>>>> e6eade7 (da sistemare sprite)
 }
 
 export function crea_camera(s) {
