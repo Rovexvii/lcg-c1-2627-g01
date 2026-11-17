@@ -9,7 +9,7 @@ const BLU = "0x0000FF";
 const VEL_PIATTAFORMA = [140, 90];
 const VEL_PIATTAFORMAX = [150];
 const ESCURSIONE = 130;
-const ESCURSIONEX = 160;
+const ESCURSIONEX = 200;
 
 const L_LIVELLO = 5000;
 
@@ -17,7 +17,7 @@ const A_LIVELLO = 500;
 
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
-const L_CANTIERE = 2000;
+const L_CANTIERE = 1500;
 const A_CANTIERE = 3000;
 
 const A_MURO = 2570;
@@ -31,7 +31,7 @@ const A_PIATTAFORMA = 50;
 const L_PIATTAFORMA = 280;
 
 const A_PIANO = 50;
-const L_PIANO = 1400;
+const L_PIANO = 1500;
 
 const A_CASSA = 80;
 const L_CASSA = 80;
@@ -72,7 +72,7 @@ export function crea_layer(s, img) {
 }
 
 export function crea_muletto(s) {
-    muletto = PP.shapes.rectangle_add(s, 3020, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
+    muletto = PP.shapes.rectangle_add(s, 2220, Y_TERRENO - A_MULETTO / 2, L_MULETTO, A_MULETTO, GIALLO, 1);
     PP.physics.add(s, muletto, PP.physics.type.STATIC);
     PP.physics.add_collider(s, morte, muletto);
 }
