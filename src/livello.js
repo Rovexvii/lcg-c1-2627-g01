@@ -65,6 +65,7 @@ export let img_piattaforma;
 export let img_cassafissa;
 export let img_ruspa;
 export let img_ruspaalto;
+export let img_pedanamobile;
 
 
 export function crea_layer(s, img) {
@@ -123,8 +124,8 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
       piattaformamobile = [];
   y_partenza = y_piattaformamobile;
   for (let i = 0; i < y_piattaformamobile.length; i++) {
-    let b = PP.shapes.rectangle_add(s,
-      x_piattaformamobile[i], y_piattaformamobile[i], L_PIATTAFORMA - 50, A_PIATTAFORMA - 10, ROSSO, 1);
+    let b = PP.assets.image.add (s, img_pedanamobile,
+      x_piattaformamobile[i], y_piattaformamobile[i], 0.5, 0.5);
     PP.physics.add(s, b, PP.physics.type.DYNAMIC);
     PP.physics.set_allow_gravity(b, false);
     PP.physics.set_immovable(b, true);
@@ -139,8 +140,8 @@ export function crea_piattaformamobile (s, x_piattaformamobile, y_piattaformamob
   
     x_partenza = x_piattaformamobilex;
   for (let i = 0; i < x_piattaformamobilex.length; i++) {
-    let m = PP.shapes.rectangle_add(s,
-      x_piattaformamobilex[i], y_piattaformamobilex[i], L_PIATTAFORMA - 50, A_PIATTAFORMA - 10, ROSSO, 1);
+    let m = PP.assets.image.add (s, img_pedanamobile, 
+      x_piattaformamobilex[i], y_piattaformamobilex[i], 0.5, 0.5);
     PP.physics.add(s, m, PP.physics.type.DYNAMIC);
     PP.physics.set_allow_gravity(m, false);
     PP.physics.set_immovable(m, true);
@@ -225,6 +226,7 @@ export function carica_livello(s) {
     img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png")
     img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png")
     img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png")
+    img_pedanamobile = PP.assets.image.load (s, "assets/images/Pedana_mobile2.png")
 }
 
 export function crea_camera(s) {
