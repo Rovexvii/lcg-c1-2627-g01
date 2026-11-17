@@ -1,4 +1,4 @@
-import { morte, crea_morte, frena} from "./morte.js";
+import { morte } from "./morte.js";
 
 export const Y_TERRENO = 592;
 const TERRA = "0xB96E54";
@@ -10,6 +10,9 @@ const VEL_PIATTAFORMA = [120, 90];
 const VEL_PIATTAFORMAX = [150, 100];
 const ESCURSIONE = 130;
 const ESCURSIONEX = 200;
+
+const L_MORTE = 80;
+const A_MORTE = 137;
 
 const L_LIVELLO = 5000;
 
@@ -66,6 +69,8 @@ export let img_cassafissa;
 export let img_ruspa;
 export let img_ruspaalto;
 export let img_pedanamobile;
+
+export let ss_morte;
 
 
 export function crea_layer(s, img) {
@@ -222,11 +227,20 @@ export function crea_cassa(s, x_cassa, y_cassa) {
 
 export function carica_livello(s) {
     img_cassa = PP.assets.image.load(s, "assets/images/cassa_colori.png");
+<<<<<<< HEAD
     img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png")
     img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png")
     img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png")
     img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png")
     img_pedanamobile = PP.assets.image.load (s, "assets/images/Pedana_mobile2.png")
+=======
+    img_piattaforma = PP.assets.image.load(s, "assets/images/Sbarra di ferro.png");
+    img_cassafissa = PP.assets.image.load(s, "assets/images/cassafissa.png");
+    img_ruspa = PP.assets.image.load(s, "assets/images/muletto.png");
+    img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png");
+
+    ss_morte = PP.assets.sprite.load_spritesheet (s, "assets/images/morte_spritesheet.png", L_MORTE, A_MORTE);
+>>>>>>> e6eade7 (da sistemare sprite)
 }
 
 export function crea_camera(s) {

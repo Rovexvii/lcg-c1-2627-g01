@@ -1,5 +1,3 @@
-import { Y_TERRENO, terreno } from "./livello.js";
-
 const NERO = "0x000000";
 
 const X_MORTE = 200;
@@ -17,22 +15,38 @@ const TASTO_DX = PP.key_codes.RIGHT;
 const ATTRITO_FOGNE = 300;
 const ATTRITO_NORMALE = 3000;
 
-let ss_morte;
-
 export let morte;
 
-let animazione;
+export let animazione;
 
 
 
-export function crea_morte(s) {
-    morte= PP.shapes.rectangle_add(s, X_MORTE, Y_TERRENO - A_MORTE / 2, L_MORTE, A_MORTE, NERO, 1);
-    PP.physics.add(s, morte, PP.physics.type.DYNAMIC);
-    /*
-    PP.physics.set_collide_world_bounds(morte, true);
-    */
-    PP.physics.add_collider(s, morte, terreno);
+export function crea_morte(s, ss_morte, terreno, Y_TERRENO) {
+    
+    morte = PP.assets.sprite.add(s, ss_morte, X_MORTE, Y_TERRENO - A_MORTE / 2, 0.5, 0.5);
+    PP.physics.add (s, morte, PP.physics.type.DYNAMIC);
+    /* PP.physics.set_collide_world_bounds(morte, true); */
+    PP.physics.add_collider (s, morte, terreno);
 
+    PP.assets.sprite.animation_add (morte, "fermo", 0, 0, 1, 0);
+    PP.assets.sprite.animation_add (morte, "camminata", 1, 9, 12, -1);
+    PP.assets.sprite.animation_add (morte, "salto", 10, 16, 12, -1);
+
+    animazione = "fermo";
+    PP.assets.sprite.animation_play (morte, animazione);
+}
+
+export function anima_morte () {
+    let nuova = "fermo";
+    if (!PP.physics.is_on_ground(morte)) {
+        nuova = "salto";
+    } else if (PP.physics.get_velocity_x(morte) !== 0) {
+        nuova = "camminata";
+    }
+    if (nuova !== animazione) {
+        animazione = nuova;
+        PP.assets.sprite.animation_play(morte, animazione);
+    }
 }
 
 export function muovi_morte(s) {
@@ -43,8 +57,10 @@ export function muovi_morte(s) {
 function cammina(s) {
     if (PP.interactive.kb.is_key_down(s, TASTO_SX)) {
         PP.physics.set_velocity_x(morte, -VEL_CORSA);
+        morte.geometry.flip_x = true;
     } else if (PP.interactive.kb.is_key_down(s, TASTO_DX)) {
         PP.physics.set_velocity_x(morte, VEL_CORSA);
+        morte.geometry.flip_x = false;
     } else {
         PP.physics.set_velocity_x(morte, 0);
     }

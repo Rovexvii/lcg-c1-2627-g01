@@ -1,5 +1,5 @@
-import { morte, crea_morte, muovi_morte, frena } from "../morte.js";
-import { Y_TERRENO, cassa, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, 
+import { morte, crea_morte, muovi_morte, animazione, anima_morte, frena } from "../morte.js";
+import { Y_TERRENO, terreno, ss_morte, cassa, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, 
     crea_piattaforma, crea_muletto, crea_mulettoalto, crea_piano, crea_cassa, crea_cassafissa, crea_piattaformamobile, muovi_piattaforma,
     crea_piattaformamobilex, muovi_piattaformax, carica_livello} from "../livello.js";
 
@@ -30,7 +30,7 @@ function preload(s) {
  function create(s) {
     crea_terreno(s); 
     crea_cantiere(s);
-    crea_morte(s); 
+    crea_morte(s, ss_morte, terreno, Y_TERRENO);
     crea_camera(s);
     muro_sx(s);
     muro_dx(s);
@@ -50,6 +50,7 @@ function update(s) {
     muovi_morte(s);
     muovi_piattaforma(s);
     muovi_piattaformax(s);
+    anima_morte();
 }
 
 
