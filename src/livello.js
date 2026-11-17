@@ -77,7 +77,7 @@ export function crea_layer(s, img) {
 export function crea_muletto(s) {
     muletto = PP.assets.image.add(s, img_ruspa, 2218, Y_TERRENO - A_MULETTO / 2, 0.5, 0.5);
     PP.physics.add(s, muletto, PP.physics.type.STATIC);
-    PP.physics.add_collider(s, muletto, morte);
+    PP.physics.add_collider(s, morte, muletto);
 }
 
 export function crea_mulettoalto(s) {
