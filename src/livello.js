@@ -48,6 +48,7 @@ const A_TERRENO = 170;
 const ANTICIPO_CAMERA = 100;
 
 const TEMPO_CADUTA = 1000;
+const TEMPO_RICOMPARSA = 5000;
 const TOLLERANZA_CONTATTO = 15;
 
 
@@ -72,6 +73,9 @@ export let caduta_attivata;
 export let tempo_attivazione;
 export let caduta_iniziata;
 
+export let posizione_inizialex;
+export let posizione_inizialey;
+export let tempo_ricomparsa;
 
 export let img_cassa;
 export let img_piattaforma;
@@ -80,6 +84,7 @@ export let img_ruspa;
 export let img_ruspaalto;
 export let img_pedanamobile;
 export let img_piattaformacadente;
+export let img_cantiere;
 
 export let ss_morte;
 
@@ -104,7 +109,7 @@ export function crea_mulettoalto(s) {
 }
 
 export function crea_cantiere(s) {
-    cantiere = PP. shapes.rectangle_add(s, L_CANTIERE * 1.1, Y_TERRENO - A_CANTIERE / 2, L_CANTIERE, A_CANTIERE, TERRA, 0.5);
+    cantiere = PP.assets.image.add(s, img_cantiere, L_CANTIERE, A_CANTIERE, 0.5, 0.5);
 }
 
 export function crea_terreno(s) {
@@ -196,6 +201,9 @@ export function crea_piattaformacadente (s, x_piattaformacadente, y_piattaformac
       caduta_attivata = [];
       tempo_attivazione = [];
       caduta_iniziata = [];
+      posizione_inizialex = [];
+      posizione_inizialey = [];
+      tempo_ricomparsa = [];
 
   for (let i = 0; i < x_piattaformacadente.length; i++) {
     let d = PP.assets.image.add (s, img_piattaformacadente,
@@ -208,6 +216,10 @@ export function crea_piattaformacadente (s, x_piattaformacadente, y_piattaformac
     caduta_attivata.push(false);
     tempo_attivazione.push (0); 
     caduta_iniziata.push (false);
+
+    posizione_inizialex.push (x_piattaformacadente[i]);
+    posizione_inizialey.push (y_piattaformacadente[i]);
+    tempo_ricomparsa.push (0);
 
     PP.physics.add_collider_f(s, morte, d, caduta)
   }
@@ -229,14 +241,28 @@ export function caduta (s, morte, piattaforma) {
 }
 
 export function muovi_piattaformacadente(s) {
+    let tempo_attuale = PP.timers.get_time(s);
     for (let i = 0; i < piattaformacadente.length; i++) {
+        let d = piattaformacadente[i];
         if (caduta_attivata[i] === true &&
             caduta_iniziata[i] === false) {
-            if (PP.timers.get_time(s) - tempo_attivazione[i] >= TEMPO_CADUTA) {
-                PP.physics.set_immovable(piattaformacadente[i], false);
-                PP.physics.set_allow_gravity(piattaformacadente[i], true);
+            if (tempo_attuale - tempo_attivazione[i] >= TEMPO_CADUTA) {
+                PP.physics.set_immovable(d, false);
+                PP.physics.set_allow_gravity(d, true);
                 caduta_iniziata[i] = true;
+                tempo_ricomparsa[i] = tempo_attuale;
             }
+        } if (caduta_iniziata[i] === true &&
+            tempo_attuale - tempo_ricomparsa[i] >= TEMPO_RICOMPARSA) {
+            PP.physics.set_allow_gravity(d, false);
+            PP.physics.set_velocity_y(d, 0);
+            d.geometry.x = posizione_inizialex[i];
+            d.geometry.y = posizione_inizialey[i];
+            PP.physics.set_immovable(d, true);
+            caduta_attivata[i] = false;
+            caduta_iniziata[i] = false;
+            tempo_attivazione[i] = 0;
+            tempo_ricomparsa[i] = 0;
         }
     }
 }
@@ -293,6 +319,7 @@ export function carica_livello(s) {
     img_ruspaalto = PP.assets.image.load(s, "assets/images/Ruspa_alto.png")
     img_pedanamobile = PP.assets.image.load (s, "assets/images/Pedana_mobile2.png")
     img_piattaformacadente = PP.assets.image.load (s, "assets/images/ruggine.png")
+    img_cantiere = PP.assets.image.load (s, "assets/images/sfondo_cantiere.png")
 
     ss_morte = PP.assets.sprite.load_spritesheet (s, "assets/images/morte_spritesheet.png", L_MORTE, A_MORTE);
 }
