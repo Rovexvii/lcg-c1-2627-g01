@@ -2,9 +2,9 @@ import { morte, crea_morte, muovi_morte, animazione, anima_morte, frena, carica_
 import { Y_TERRENO, terreno, ss_morte, cassa, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, 
     crea_piattaforma, crea_muletto, crea_mulettoalto, crea_piano, crea_cassa, crea_cassafissa, crea_piattaformamobile, muovi_piattaforma,
     crea_piattaformamobilex, muovi_piattaformax, carica_livello,
-    crea_piattaformacadente, caduta, muovi_piattaformacadente, mulettoalto} from "../livello.js";
+    crea_piattaformacadente, caduta, muovi_piattaformacadente, mulettoalto, crea_piuma} from "../livello.js";
 
-const X_PIATTAFORMA = [1700, 1200];
+const X_PIATTAFORMA = [1700, 1200, ];
 const Y_PIATTAFORMA = [280, 120];
 
 const X_PIANO = [];
@@ -15,6 +15,9 @@ const Y_CASSA = [-265];
 
 const X_CASSAFISSA = [3130];
 const Y_CASSAFISSA = [-345];
+
+const X_PIUMA = [200, 600];
+const Y_PIUMA = [485, 485];
 
 const X_PIATTAFORMAMOBILE = [2200];
 const Y_PIATTAFORMAMOBILE = [-300];
@@ -51,7 +54,7 @@ function preload(s) {
     PP.game.set_physics_fps(s, FPS_FISICA);
     crea_piattaformamobilex(s, X_PIATTAFORMAMOBILEX, Y_PIATTAFORMAMOBILEX);
     crea_piattaformacadente(s, X_PIATTAFORMACADENTE, Y_PIATTAFORMACADENTE);
-    
+    crea_piuma(s, X_PIUMA, Y_PIUMA);
     
 }
 
