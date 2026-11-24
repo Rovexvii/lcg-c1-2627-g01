@@ -33,10 +33,7 @@ export function crea_morte(s, ss_morte, terreno, Y_TERRENO) {
 
     PP.assets.sprite.animation_add (morte, "fermo", 0, 0, 1, 0);
     PP.assets.sprite.animation_add (morte, "camminata", 1, 9, 12, -1);
-    PP.assets.sprite.animation_add (morte, "salto", 10, 16, 12, -1);
-
-    animazione = "fermo";
-    PP.assets.sprite.animation_play (morte, animazione);
+    PP.assets.sprite.animation_add (morte, "salto", 10, 16, 3, 0);
 }
 
 export function anima_morte () {
@@ -48,7 +45,7 @@ export function anima_morte () {
     }
     if (nuova !== animazione) {
         animazione = nuova;
-        PP.assets.sprite.animation_play(morte, animazione);
+        PP.assets.sprite.animation_play(morte, nuova);
     }
 }
 

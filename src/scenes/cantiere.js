@@ -16,7 +16,7 @@ const Y_CASSA = [-265];
 const X_CASSAFISSA = [3130];
 const Y_CASSAFISSA = [-345];
 
-const X_PIUMA = [200, 600];
+const X_PIUMA = [900, 600];
 const Y_PIUMA = [485, 485];
 
 const X_PIATTAFORMAMOBILE = [2200];
