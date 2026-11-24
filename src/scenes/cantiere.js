@@ -38,7 +38,7 @@ function preload(s) {
  function create(s) {
     crea_terreno(s); 
     crea_cantiere(s);
-    crea_morte(s, ss_morte, terreno, Y_TERRENO);
+    crea_morte(s, ss_morte, terreno);
     crea_camera(s);
     muro_sx(s);
     muro_dx(s);
