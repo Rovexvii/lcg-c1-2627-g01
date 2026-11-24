@@ -22,15 +22,14 @@ export function carica_morte(s) {
     ss_morte = PP.assets.sprite.load_spritesheet (s, "assets/images/morte_spritesheet.png", L_MORTE, A_MORTE);
 }
 
-export function crea_morte(s, ss_morte, terreno) {
-    animazione = "";
-    morte = PP.assets.sprite.add(s, ss_morte, L_MORTE, A_MORTE, 0.5, 0.5);
+export function crea_morte(s, ss_morte, terreno, Y_TERRENO) {
+    morte = PP.assets.sprite.add(s, ss_morte, X_MORTE, Y_TERRENO - A_MORTE / 2, 0.5, 0.5);
     PP.physics.add(s, morte, PP.physics.type.DYNAMIC);
     PP.physics.add_collider(s, morte, terreno);
 
     PP.assets.sprite.animation_add (morte, "fermo", 0, 0, 1, 0);
-    PP.assets.sprite.animation_add (morte, "camminata", 1, 9, 12, -1);
-    PP.assets.sprite.animation_add (morte, "salto", 10, 16, 12, -1);
+    PP.assets.sprite.animation_add (morte, "camminata", 1, 9, 9, -1);
+    PP.assets.sprite.animation_add (morte, "salto", 10, 16, 7, 0);
 }
 
 export function anima_morte () {
