@@ -14,6 +14,8 @@ const ESCURSIONEX = 200;
 const L_MORTE = 80;
 const A_MORTE = 137;
 
+const L_PIUMA = 30;
+
 const L_LIVELLO = 5000;
 
 const A_LIVELLO = 500;
@@ -21,7 +23,7 @@ const A_LIVELLO = 500;
 const ALTEZZA = 720;
 const LARGHEZZA = 1280;
 const L_CANTIERE = 1500;
-const A_CANTIERE = 3000;
+const A_CANTIERE = 2250;
 
 const A_MURO = 2570;
 const L_MURO = 60;
@@ -67,6 +69,7 @@ export let x_partenza;
 export let piattaformamobilex;
 export let mulettoalto;
 export let piattaformacadente;
+export let piuma
 
 export let caduta_attivata;
 export let tempo_attivazione;
@@ -95,6 +98,19 @@ export function crea_layer(s, img) {
     return layer;
 }
 
+export function crea_piuma(s, x_piuma, y_piuma) {
+    piuma = [];
+    for (let i = 0; i < x_piuma.length; i++) {
+        let u = PP.shapes.rectangle_add(s, x_piuma[i], y_piuma[i], L_PIUMA, L_PIUMA, ROSSO, 1);
+        piuma.push(u);
+    }
+    for (let i = 0; i < piuma.length; i++) {
+        PP.physics.add(s, piuma[i], PP.physics.type.STATIC);
+        PP.physics.add_collider(s, morte, piuma[i]);
+    }
+
+}
+
 export function crea_muletto(s) {
     muletto = PP.assets.image.add(s, img_ruspa, 2218, Y_TERRENO - A_MULETTO / 2, 0.5, 0.5);
     PP.physics.add(s, muletto, PP.physics.type.STATIC);
@@ -117,13 +133,13 @@ export function crea_terreno(s) {
 }
 
 export function muro_sx(s) {
-    murosx = PP. shapes.rectangle_add(s, L_CANTIERE * 0.6, Y_TERRENO - A_CANTIERE / 2, L_MURO, A_MURO, ROSSO, 1);
+    murosx = PP. shapes.rectangle_add(s, L_CANTIERE * 0.6, Y_TERRENO - A_CANTIERE / 1.5, L_MURO, A_MURO, ROSSO, 1);
     PP.physics.add(s, murosx, PP.physics.type.STATIC);
     PP.physics.add_collider(s, morte, murosx);
 }
 
 export function muro_dx(s) {
-    murodx = PP. shapes.rectangle_add(s, L_CANTIERE * 1.6, Y_TERRENO - A_CANTIERE / 2, L_MURO, A_MURO + 430, ROSSO, 1);
+    murodx = PP. shapes.rectangle_add(s, L_CANTIERE * 1.6, Y_TERRENO - A_CANTIERE / 1.5, L_MURO, A_MURO + 430, ROSSO, 1);
     PP.physics.add(s, murodx, PP.physics.type.STATIC);
     PP.physics.add_collider(s, morte, murodx);
 }
