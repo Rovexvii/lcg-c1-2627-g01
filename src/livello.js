@@ -68,7 +68,6 @@ export let piattaformamobilex;
 export let mulettoalto;
 export let piattaformacadente;
 
-
 export let caduta_attivata;
 export let tempo_attivazione;
 export let caduta_iniziata;

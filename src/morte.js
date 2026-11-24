@@ -16,9 +16,12 @@ const ATTRITO_FOGNE = 300;
 const ATTRITO_NORMALE = 3000;
 
 export let morte;
-
+export let ss_morte;
 export let animazione;
 
+export function carica_morte(s) {
+    ss_morte = PP.assets.sprite.load_spritesheet (s, "assets/images/morte_spritesheet.png", L_MORTE, A_MORTE);
+}
 
 
 export function crea_morte(s, ss_morte, terreno, Y_TERRENO) {

@@ -1,8 +1,8 @@
-import { morte, crea_morte, muovi_morte, animazione, anima_morte, frena } from "../morte.js";
+import { morte, crea_morte, muovi_morte, animazione, anima_morte, frena, carica_morte } from "../morte.js";
 import { Y_TERRENO, terreno, ss_morte, cassa, crea_terreno, crea_camera, crea_cantiere, muro_sx, muro_dx, 
     crea_piattaforma, crea_muletto, crea_mulettoalto, crea_piano, crea_cassa, crea_cassafissa, crea_piattaformamobile, muovi_piattaforma,
     crea_piattaformamobilex, muovi_piattaformax, carica_livello,
-    crea_piattaformacadente, caduta, muovi_piattaformacadente} from "../livello.js";
+    crea_piattaformacadente, caduta, muovi_piattaformacadente, mulettoalto} from "../livello.js";
 
 const X_PIATTAFORMA = [1700, 1200];
 const Y_PIATTAFORMA = [280, 120];
@@ -29,6 +29,7 @@ const FPS_FISICA = 300;
 
 function preload(s) {
     carica_livello(s);
+    carica_morte(s);
 }
 
  function create(s) {
@@ -41,6 +42,7 @@ function preload(s) {
     crea_piattaforma(s, X_PIATTAFORMA, Y_PIATTAFORMA);
     crea_muletto(s);
     crea_mulettoalto(s);
+    s.children.moveAbove(morte.ph_obj, mulettoalto.ph_obj);
     crea_piano(s, X_PIANO, Y_PIANO);
     /*
     crea_cassa(s, X_CASSA, Y_CASSA);
@@ -49,6 +51,8 @@ function preload(s) {
     PP.game.set_physics_fps(s, FPS_FISICA);
     crea_piattaformamobilex(s, X_PIATTAFORMAMOBILEX, Y_PIATTAFORMAMOBILEX);
     crea_piattaformacadente(s, X_PIATTAFORMACADENTE, Y_PIATTAFORMACADENTE);
+    
+    
 }
 
 function update(s) {
